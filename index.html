@@ -120,10 +120,20 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
   display:grid;place-items:center;margin:0 auto 14px}
 .ftr{max-width:var(--max);margin:0 auto;padding:22px 20px;display:flex;align-items:center;gap:10px;
   color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+.wc-head{text-align:center;margin-bottom:6px}
+.wc-badge{display:inline-block;background:var(--amber-bg);color:var(--amber);padding:4px 12px;border-radius:20px;font-size:.82rem;margin-bottom:8px}
+.wc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}
+.wc-match{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+.wc-teams{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;font-size:1.05rem}
+.wc-team{flex:1} .wc-team.away{text-align:right}
+.wc-score{background:var(--blue);color:#fff;border-radius:10px;padding:4px 12px;font-size:1.05rem;font-weight:800}
+.wc-pred{color:var(--muted);font-size:.9rem;margin-top:12px} .wc-pred b{color:var(--blue)}
+.wc-bar{height:8px;background:var(--blue-l);border-radius:6px;margin-top:8px;overflow:hidden}
+.wc-bar span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--blue-d))}
 @media(max-width:760px){
   .hero{grid-template-columns:1fr} .hero-art{display:none}
   .hero h1{font-size:1.9rem}
-  .track-grid,.course-grid,.plan-grid{grid-template-columns:1fr}
+  .track-grid,.course-grid,.plan-grid,.wc-grid{grid-template-columns:1fr}
   .hdr-nav{display:none}
   .hdr{gap:8px;padding:10px 14px}
   .hdr-actions{gap:6px}
@@ -145,6 +155,7 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
       <button class="nav-link" data-nav="catalog" aria-label="Packages">Packages</button>
     </nav>
     <div class="hdr-actions">
+      <button id="wcBtn" class="btn btn-outline btn-sm" data-nav="worldcup" aria-label="World Cup 2026">🏆 World Cup 2026</button>
       <span id="userBadge" class="user-badge" hidden></span>
       <button id="logoutBtn" class="btn btn-ghost btn-sm" aria-label="Log out" hidden>Log out</button>
       <button id="loginBtnHeader" class="btn btn-ghost btn-sm" data-nav="login" aria-label="Log in to your account">Log In</button>
@@ -203,7 +214,7 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
           <input id="liEmail" type="email" placeholder="you@example.com" aria-label="Email" /></label>
         <label class="fld"><span>Password</span>
           <input id="liPass" type="password" placeholder="••••••••" aria-label="Password" /></label>
-        <button id="loginBtn" class="btn btn-primary btn-lg btn-block" aria-label="Log in">Log In</button>
+        <button id="loginBtn" class="btn btn-primary btn-lg btn-block" aria-label="Sign in">Sign In</button>
         <p class="tiny muted">New here? <button class="linklike" data-nav="signup">Create an account</button></p>
       </div>
     </section>
@@ -276,6 +287,40 @@ hr{border:0;border-top:1px solid var(--line);margin:12px 0}
         <p class="muted">Welcome to Jo Academy Premium. Your courses are unlocked.</p>
         <p class="tiny muted">Subscription ID: <span id="successSubId">—</span></p>
         <button class="btn btn-primary btn-lg" data-nav="catalog" aria-label="Go to my courses">Go to My Courses</button>
+      </div>
+    </section>
+
+    <!-- ===== World Cup 2026 predictor (static demo feature) ===== -->
+    <section class="view" id="view-worldcup" hidden>
+      <div class="wc-head">
+        <span class="wc-badge">⚽ Demo feature · AI match predictor</span>
+        <h2 class="section-title">World Cup 2026 — Match Predictor</h2>
+        <p class="muted">Jo Academy's playful AI picks for the group stage. Illustrative only (static demo data).</p>
+      </div>
+      <div class="wc-grid">
+        <div class="wc-match">
+          <div class="wc-teams"><span class="wc-team">🇧🇷 Brazil</span><span class="wc-score">2 – 1</span><span class="wc-team away">Argentina 🇦🇷</span></div>
+          <div class="wc-pred">Predicted winner: <b>Brazil</b> · 64% confidence</div>
+          <div class="wc-bar"><span style="width:64%"></span></div>
+        </div>
+        <div class="wc-match">
+          <div class="wc-teams"><span class="wc-team">🇫🇷 France</span><span class="wc-score">3 – 2</span><span class="wc-team away">England 🇬🇧</span></div>
+          <div class="wc-pred">Predicted winner: <b>France</b> · 58% confidence</div>
+          <div class="wc-bar"><span style="width:58%"></span></div>
+        </div>
+        <div class="wc-match">
+          <div class="wc-teams"><span class="wc-team">🇪🇸 Spain</span><span class="wc-score">2 – 1</span><span class="wc-team away">Germany 🇩🇪</span></div>
+          <div class="wc-pred">Predicted winner: <b>Spain</b> · 61% confidence</div>
+          <div class="wc-bar"><span style="width:61%"></span></div>
+        </div>
+        <div class="wc-match">
+          <div class="wc-teams"><span class="wc-team">🇺🇸 USA</span><span class="wc-score">1 – 2</span><span class="wc-team away">Mexico 🇲🇽</span></div>
+          <div class="wc-pred">Predicted winner: <b>Mexico</b> · 55% confidence</div>
+          <div class="wc-bar"><span style="width:55%"></span></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:24px">
+        <button class="btn btn-primary btn-lg" data-nav="landing" aria-label="Back to Jo Academy">← Back to Jo Academy</button>
       </div>
     </section>
 
@@ -361,7 +406,7 @@ const PLANS = [
   { key: "annual",  name: "Annual — All access", price: 149.99, tag: "Best value", sub: "/year" }
 ];
 
-const views = ["landing", "catalog", "login", "signup", "plan", "checkout", "success"];
+const views = ["landing", "catalog", "login", "signup", "plan", "checkout", "success", "worldcup"];
 function show(view) {
   if (currentView === "plan" && view !== "checkout" && view !== "success") {
     track("Payment Abandoned", {
@@ -381,6 +426,7 @@ function show(view) {
   if (view === "catalog")  track("Subject Browsed", { grade_track: STATE.track, courses_visible: COURSES.length });
   if (view === "signup")   track("Sign Up Started", { grade_track: STATE.track });
   if (view === "plan")     onPlanView();
+  if (view === "worldcup") track("World Cup Predictor Viewed", { matches: 4, feature: "world_cup_2026" });
 }
 
 function marketingProps() {
