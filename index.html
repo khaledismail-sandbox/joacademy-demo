@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jo Academy — Learn. Practice. Excel.</title>
+  <meta name="description" content="Jordan's leading e-learning platform for Tawjihi, school and university prep." />
+  <link rel="stylesheet" href="./styles.css" />
+  <!-- Amplitude unified loader (key swapped in at publish) -->
+  <script src="https://cdn.amplitude.com/script/eb773c457a4b5fa697ae4508bac2799d.js"></script>
+</head>
+<body>
+  <!-- ===== Header ===== -->
+  <header class="hdr">
+    <a class="brand" href="#" data-nav="landing" aria-label="Jo Academy home">
+      <span class="brand-mark" aria-hidden="true">جو</span>
+      <span class="brand-name">Jo<span class="brand-name-2">Academy</span></span>
+    </a>
+    <nav class="hdr-nav" aria-label="Primary">
+      <button class="nav-link" data-nav="catalog" aria-label="Courses">Courses</button>
+      <button class="nav-link" data-nav="catalog" aria-label="Teachers">Teachers</button>
+      <button class="nav-link" data-nav="catalog" aria-label="Packages">Packages</button>
+    </nav>
+    <div class="hdr-actions">
+      <span id="userBadge" class="user-badge" hidden></span>
+      <button id="logoutBtn" class="btn btn-ghost btn-sm" aria-label="Log out" hidden>Log out</button>
+      <button id="loginBtnHeader" class="btn btn-ghost btn-sm" data-nav="login" aria-label="Log in to your account">Log In</button>
+      <button id="startBtnHeader" class="btn btn-primary btn-sm" data-nav="signup" data-cta="header" aria-label="Start learning">Start Learning</button>
+    </div>
+  </header>
+
+  <main id="app">
+
+    <!-- ===== Landing ===== -->
+    <section class="view" id="view-landing">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="promo-banner" id="promoBanner" aria-label="Promotion">
+            🎓 <strong>Free first lesson</strong> — Tawjihi 2026 prep is now live
+          </div>
+          <h1>Jordan's #1 platform for <span class="hl">Tawjihi & school success</span></h1>
+          <p class="sub">Recorded + live classes, AI study help, exams and worksheets — built by Jordan's top teachers. Join 2M+ students.</p>
+          <div class="hero-cta">
+            <button class="btn btn-primary btn-lg" data-nav="signup" data-cta="hero" aria-label="Start learning free">Start Learning Free</button>
+            <button class="btn btn-outline btn-lg" data-nav="catalog" aria-label="Browse courses">Browse Courses</button>
+          </div>
+          <div class="stats">
+            <div><b>2M+</b><span>Students</span></div>
+            <div><b>13K+</b><span>Courses</span></div>
+            <div><b>1.2M+</b><span>Watch hours</span></div>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="play-card">
+            <div class="play-dot"></div>
+            <div class="play-lines"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Choose your track</h2>
+      <div class="track-grid" id="trackGrid" aria-label="Grade tracks">
+        <!-- track cards injected -->
+      </div>
+    </section>
+
+    <!-- ===== Catalog ===== -->
+    <section class="view" id="view-catalog" hidden>
+      <div class="catalog-head">
+        <h2 class="section-title">Popular courses</h2>
+        <div class="search-wrap">
+          <input id="searchInput" class="search" type="search" placeholder="Search courses (e.g. Physics, Arabic)…" aria-label="Search courses" />
+          <button id="searchBtn" class="btn btn-outline btn-sm" aria-label="Search">Search</button>
+        </div>
+      </div>
+      <div class="course-grid" id="courseGrid" aria-label="Courses"><!-- course cards injected --></div>
+    </section>
+
+    <!-- ===== Log in ===== -->
+    <section class="view" id="view-login" hidden>
+      <div class="card form-card">
+        <h2>Welcome back</h2>
+        <p class="muted">Log in to continue learning.</p>
+        <label class="fld"><span>Email</span>
+          <input id="liEmail" type="email" placeholder="you@example.com" aria-label="Email" /></label>
+        <label class="fld"><span>Password</span>
+          <input id="liPass" type="password" placeholder="••••••••" aria-label="Password" /></label>
+        <button id="loginBtn" class="btn btn-primary btn-lg btn-block" aria-label="Log in">Log In</button>
+        <p class="tiny muted">New here? <button class="linklike" data-nav="signup">Create an account</button></p>
+      </div>
+    </section>
+
+    <!-- ===== Sign up ===== -->
+    <section class="view" id="view-signup" hidden>
+      <div class="card form-card">
+        <h2>Create your free account</h2>
+        <p class="muted">Start with a free lesson — no payment needed to sign up.</p>
+        <label class="fld"><span>Full name</span>
+          <input id="suName" type="text" placeholder="e.g. Lara Haddad" aria-label="Full name" /></label>
+        <label class="fld"><span>Email</span>
+          <input id="suEmail" type="email" placeholder="you@example.com" aria-label="Email" /></label>
+        <label class="fld"><span>Mobile number</span>
+          <input id="suPhone" type="tel" placeholder="07X XXX XXXX" aria-label="Mobile number" /></label>
+        <label class="fld"><span>Grade track</span>
+          <select id="suTrack" aria-label="Grade track"></select></label>
+        <button id="createAccountBtn" class="btn btn-primary btn-lg btn-block" aria-label="Create my account">Create My Account</button>
+        <p class="tiny muted">Already have an account? <button class="linklike" data-nav="login">Log in</button></p>
+      </div>
+    </section>
+
+    <!-- ===== Plan & Payment (FRICTION) ===== -->
+    <section class="view" id="view-plan" hidden>
+      <h2 class="section-title">Choose your subscription</h2>
+      <p class="muted center">You're one step away from full access. Pick a plan to continue.</p>
+
+      <div class="plan-grid" id="planGrid" aria-label="Subscription plans"><!-- plans injected --></div>
+
+      <div class="card pay-card">
+        <h3>Payment method</h3>
+        <div id="payMethods" class="pay-methods">
+          <div class="pay-method selected"><span class="pm-ic">💳</span> Visa / Mastercard</div>
+        </div>
+        <p id="cardOnlyNote" class="warn-note" aria-live="polite">
+          ⚠️ A credit / debit card is required to continue. Local options (CliQ, eFAWATEERcom, cash) are not available.
+        </p>
+
+        <div class="plan-actions">
+          <button id="continuePayBtn" class="btn btn-primary btn-lg" aria-label="Continue to payment">Continue to Payment</button>
+          <button id="abandonBtn" class="btn btn-ghost btn-lg" aria-label="Maybe later">Maybe later</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Checkout ===== -->
+    <section class="view" id="view-checkout" hidden>
+      <div class="card form-card">
+        <h2>Checkout</h2>
+        <div class="summary-row"><span>Plan</span><b id="coPlanName">Premium — Monthly</b></div>
+        <div class="summary-row"><span>Total</span><b id="coTotal">19.99 JOD</b></div>
+        <hr/>
+        <label class="fld"><span>Card number</span>
+          <input id="coCard" type="text" placeholder="4242 4242 4242 4242" aria-label="Card number" /></label>
+        <div class="fld-row">
+          <label class="fld"><span>Expiry</span><input id="coExp" type="text" placeholder="MM/YY" aria-label="Card expiry" /></label>
+          <label class="fld"><span>CVC</span><input id="coCvc" type="text" placeholder="123" aria-label="Card CVC" /></label>
+        </div>
+        <label class="fld"><span>Promo code</span>
+          <span class="promo-row">
+            <input id="coPromo" type="text" placeholder="TAWJIHI10" aria-label="Promo code" />
+            <button id="applyPromoBtn" class="btn btn-outline btn-sm" aria-label="Apply promo code">Apply</button>
+          </span></label>
+        <button id="payActivateBtn" class="btn btn-primary btn-lg btn-block" aria-label="Pay and activate subscription">Pay &amp; Activate</button>
+        <button class="btn btn-ghost btn-block" id="cancelCheckoutBtn" aria-label="Cancel checkout">Cancel</button>
+      </div>
+    </section>
+
+    <!-- ===== Success ===== -->
+    <section class="view" id="view-success" hidden>
+      <div class="card success-card">
+        <div class="success-tick">✓</div>
+        <h2>Subscription activated 🎉</h2>
+        <p class="muted">Welcome to Jo Academy Premium. Your courses are unlocked.</p>
+        <p class="tiny muted">Subscription ID: <span id="successSubId">—</span></p>
+        <button class="btn btn-primary btn-lg" data-nav="catalog" aria-label="Go to my courses">Go to My Courses</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="ftr">
+    <span class="brand-mark sm" aria-hidden="true">جو</span>
+    <span>Jo Academy — demo environment for Amplitude. Brand-inspired; not affiliated.</span>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
