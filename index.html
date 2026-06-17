@@ -378,6 +378,7 @@ function show(view) {
   currentView = view;
   window.scrollTo(0, 0);
   if (view === "landing")  track("Landing Page Viewed", marketingProps());
+  if (view === "catalog")  track("Subject Browsed", { grade_track: STATE.track, courses_visible: COURSES.length });
   if (view === "signup")   track("Sign Up Started", { grade_track: STATE.track });
   if (view === "plan")     onPlanView();
 }
@@ -405,8 +406,7 @@ function renderTracks() {
     c.setAttribute("aria-label", t.name);
     c.onclick = () => {
       STATE.track = t.name;
-      track("Subject Browsed", { grade_track: t.name, courses_visible: COURSES.length });
-      show("catalog");
+      show("catalog");   // show() fires "Subject Browsed" on catalog view
     };
     g.appendChild(c);
   });
@@ -554,7 +554,7 @@ document.addEventListener("DOMContentLoaded", () => {
     track("Account Created", { grade_track: track_, is_first_subscription: true });
     track("Logged In", { method: "signup", membership_tier: "free" });
     updateBadge();
-    show("plan");
+    show("catalog");   // browse subjects/courses first, then choose a course -> paywall
   };
 
   document.getElementById("loginBtn").onclick = () => {
