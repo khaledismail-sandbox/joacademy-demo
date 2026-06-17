@@ -216,6 +216,20 @@ function applyLocalPay() {
   }
 }
 
+/* ---------- finalize subscription (shared by one-click + form checkout) ---------- */
+function finalizeSubscription() {
+  const subId = "SUB-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+  ident({ membership_tier: STATE.plan.key === "annual" ? "premium" : STATE.plan.key });
+  track("Subscription Activated", {
+    subscription_id: subId, grade_track: STATE.track,
+    plan_price: STATE.plan.price, total_amount: STATE.plan.price,
+    is_first_subscription: !STATE.returning, promo_applied: false
+  });
+  const el = document.getElementById("successSubId");
+  if (el) el.textContent = subId;
+  show("success");
+}
+
 /* ---------- wire up ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   renderTracks();
@@ -274,6 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
       device_type: window.innerWidth <= 760 ? "mobile" : "desktop"
     });
     track("Account Created", { grade_track: track_, is_first_subscription: true });
+    track("Logged In", { method: "signup", membership_tier: "free" });
     updateBadge();
     show("plan");
   };
@@ -291,6 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
       account_age_days: 180,
       device_type: window.innerWidth <= 760 ? "mobile" : "desktop"
     });
+    track("Logged In", { method: "password", membership_tier: "premium" });
     updateBadge();
     show("catalog");
   };
@@ -302,6 +318,9 @@ document.addEventListener("DOMContentLoaded", () => {
       payment_method_saved: STATE.returning, trial_offer_eligible: STATE.localPay,
       grade_track: STATE.track
     });
+    // Returning user with a saved card -> one-click finalize (no card form)
+    if (STATE.returning) { finalizeSubscription(); return; }
+    // New user -> collect card details
     document.getElementById("coPlanName").textContent = STATE.plan.name;
     document.getElementById("coTotal").textContent = STATE.plan.price.toFixed(2) + " JOD";
     show("checkout");
@@ -320,17 +339,9 @@ document.addEventListener("DOMContentLoaded", () => {
     track("Promo Code Entered", { code_entered: code || "(empty)", code_valid: valid, discount_value: valid ? +(STATE.plan.price * 0.1).toFixed(2) : 0 });
   };
 
-  // pay & activate
+  // pay & activate (new-user card form path)
   document.getElementById("payActivateBtn").onclick = () => {
-    const subId = "SUB-" + Math.random().toString(36).slice(2, 8).toUpperCase();
-    ident({ membership_tier: STATE.plan.key === "annual" ? "premium" : STATE.plan.key });
-    track("Subscription Activated", {
-      subscription_id: subId, grade_track: STATE.track,
-      plan_price: STATE.plan.price, total_amount: STATE.plan.price,
-      is_first_subscription: !STATE.returning, promo_applied: false
-    });
-    document.getElementById("successSubId").textContent = subId;
-    show("success");
+    finalizeSubscription();
   };
 
   document.getElementById("cancelCheckoutBtn").onclick = () => {
@@ -340,6 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // logout (keeps stable deviceId — never reset())
   document.getElementById("logoutBtn").onclick = () => {
+    track("Logged Out", {});
     try { window.amplitude.setUserId(undefined); } catch (e) {}
     STATE.user = null; STATE.returning = false; updateBadge();
     show("landing");
