@@ -671,5 +671,11 @@ function updateBadge() {
   }
 }
   </script>
+  <script type="module">
+    import { plugin as engagementPlugin } from 'https://unpkg.com/@amplitude/engagement-browser@1.0.10/index.esm.js';
+    if (window.amplitude && window.amplitude.add) {
+      window.amplitude.add(engagementPlugin());
+    }
+  </script>
 </body>
 </html>
